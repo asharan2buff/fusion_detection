@@ -1,0 +1,59 @@
+{
+    "dataset_kwargs": {
+      "trainer_dataset_kwargs": {
+        "lidar_dir": "data/velodyne/training/velodyne",
+        "calibration_dir": "data/calibration/training/calib",
+        "left_image_dir": "data/left_images/training/image_2",
+        "labels_dir": "data/labels/training/label_2",
+        "classes": ["Car", "Van", "Truck", "Pedestrian", "Person_sitting", "Cyclist", "Tram", "Misc"],
+        "shuffle": true,
+        "apply_augmentation": true,
+        "image_size": [416, 416],
+        "num_points": 20000
+      },
+      "validation_dataset_kwargs": {
+        "lidar_dir": "data/velodyne/validation/velodyne",
+        "calibration_dir": "data/calibration/validation/calib",
+        "left_image_dir": "data/left_images/validation/image_2",
+        "labels_dir": "data/labels/validation/label_2",
+        "classes": ["Car", "Van", "Truck", "Pedestrian", "Person_sitting", "Cyclist", "Tram", "Misc"],
+        "shuffle": false,
+        "apply_augmentation": false,
+        "image_size": [416, 416],
+        "num_points": 20000
+      }
+    },
+    "pointnet_kwargs": {
+      "num_points": 20000,
+      "num_global_feats": 1024
+    },
+    "adaptive_fusion_kwargs": {
+      "fusion_type": "residual",
+      "transform_image_features": false
+    },
+    "trainer_kwargs": {
+      "output_dir": "Spatial-IL-Fusion-Pipeline",
+      "is_training": true,
+      "first_val_epoch": 0,
+      "metric_eval_mode": "strict",
+      "metric_average_mode": "macro",
+      "epochs": 60,
+      "batch_size": 2,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0005,
+      "momentum": 0.9,
+      "scheduler_step_size": 10,
+      "scheduler_gamma": 0.8,
+      "monitor_train": true,
+      "monitor_val": true,
+      "gradient_clipping": 1.0,
+      "yolo_device_id": "mps",
+      "pointnet_device_id": "mps",
+      "checkpoint_idx": null,
+      "gradient_accumulation_steps": 4,
+      "compute_feature_alignment": false,
+      "yolo_lr_burn_in": true,
+      "robustness_augmentations": ["SaltPapperNoise", "pixelate"]
+    }
+  }
+  
